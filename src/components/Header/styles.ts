@@ -3,6 +3,10 @@ import styled from 'styled-components'
 export const Container = styled.div`
   background: #fff;
   height: 80px;
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  top: 0;
 `
 
 export const Content = styled.div`
@@ -37,6 +41,8 @@ export const Content = styled.div`
     display: flex;
     align-items: center;
     height: 28px;
+    border: 0;
+    background: transparent;
 
     img {
       display: block;
@@ -59,7 +65,6 @@ export const Content = styled.div`
   .search {
     width: 100%;
     position: relative;
-    background: red;
     height: 28px;
     margin: 0.5rem 0 0;
 
@@ -68,6 +73,7 @@ export const Content = styled.div`
       width: 100%;
       border: 0;
       border-bottom: 1px solid #000;
+      border-radius: 0;
 
       &::placeholder {
         color: #7a7a7a;

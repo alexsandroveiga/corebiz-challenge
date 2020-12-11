@@ -1,5 +1,10 @@
 import React from 'react'
 
+import logo from '../../assets/logo-white.svg'
+import vtexLogo from '../../assets/vtex-logo.svg'
+import mailIcon from '../../assets/mail-icon.svg'
+import callIcon from '../../assets/call-icon.svg'
+
 import { Container } from './styles'
 
 const Footer: React.FC = () => {
@@ -12,6 +17,29 @@ const Footer: React.FC = () => {
           <p>Alphavile SP</p>
           <p>brasil@corebiz.ag</p>
           <p>+55 11 3090 1039</p>
+        </div>
+
+        <div className="contact">
+          <button>
+            <img src={mailIcon} />
+            Entre em contato
+          </button>
+          <button>
+            <img src={callIcon} />
+            Fale com o nosso consultor online
+          </button>
+        </div>
+
+        <div className="credits">
+          <div>
+            <span>Created by</span>
+            <img src={logo} />
+          </div>
+
+          <div>
+            <span>Powered by</span>
+            <img src={vtexLogo} />
+          </div>
         </div>
       </div>
     </Container>
