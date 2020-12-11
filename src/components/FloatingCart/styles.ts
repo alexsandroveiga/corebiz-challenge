@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   background: #fff;
-  position: absolute;
+  position: fixed;
   z-index: 2;
   width: 100%;
   top: -100%;
