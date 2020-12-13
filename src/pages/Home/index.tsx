@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback, FormEvent } from 'react'
 import { useCart } from '../../hooks/cart'
 import api from '../../services/api'
 import formatValue from '../../utils/formatValue'
+import Slider from 'react-slick'
 
 import starFullIcon from '../../assets/starfull-icon.svg'
 import starEmptyIcon from '../../assets/starempty-icon.svg'
@@ -51,6 +52,28 @@ const Home: React.FC = () => {
     addToCart(item)
   }
 
+  const settings = {
+    dots: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    arrows: true,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    infinite: true,
+    responsive: [
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          arrows: false,
+          dots: true
+        }
+      }
+    ]
+  }
+
   const handleSubmit = useCallback(
     async (e: FormEvent) => {
       e.preventDefault()
@@ -70,40 +93,64 @@ const Home: React.FC = () => {
 
       <Content>
         <h1>Mais vendidos</h1>
-
-        <div className="products">
+        <Slider {...settings} className="products">
           {products.map(product => (
             <div className="product" key={product.productId}>
               {product.listPrice && <div className="off">OFF</div>}
-              <img src={product.imageUrl} alt={product.productName} />
-              <h1>{product.productName}</h1>
-              <div className="rating">
-                {Array.from({ length: 5 }, (_, index) => index + 1).map(
-                  item => (
-                    <img
-                      src={item <= product.stars ? starFullIcon : starEmptyIcon}
-                      key={item}
-                    />
-                  )
-                )}
-              </div>
 
-              <span className="listPrice">
-                {product.listPrice ? (
-                  `de ${formatValue(product.listPrice)}`
-                ) : (
-                  <br />
+              <img src={product.imageUrl} alt={product.productName} />
+
+              <div className="product-content">
+                <h1>{product.productName}</h1>
+
+                <div className="rating">
+                  {Array.from({ length: 5 }, (_, index) => index + 1).map(
+                    item => (
+                      <img
+                        src={
+                          item <= product.stars ? starFullIcon : starEmptyIcon
+                        }
+                        key={item}
+                      />
+                    )
+                  )}
+                </div>
+
+                <span className="listPrice">
+                  {product.listPrice ? (
+                    `de ${formatValue(product.listPrice)}`
+                  ) : (
+                    <br />
+                  )}
+                </span>
+
+                <span className="price">por {formatValue(product.price)}</span>
+
+                {product.installments.map(installment => (
+                  <span
+                    className="installments"
+                    key={installment.quantity + ''}
+                  >
+                    ou em {installment.quantity}x de{' '}
+                    {formatValue(installment.value)}
+                  </span>
+                ))}
+
+                {product.installments.length === 0 && (
+                  <span className="installments">
+                    <br />
+                  </span>
                 )}
-              </span>
-              <span className="price">por {formatValue(product.price)}</span>
-              <button
-                onClick={() => handleAddToCart({ ...product, quantity: 1 })}
-              >
-                Comprar
-              </button>
+
+                <button
+                  onClick={() => handleAddToCart({ ...product, quantity: 1 })}
+                >
+                  Comprar
+                </button>
+              </div>
             </div>
           ))}
-        </div>
+        </Slider>
 
         <div className="newsletter">
           {success ? (

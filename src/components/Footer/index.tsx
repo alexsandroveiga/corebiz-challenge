@@ -22,11 +22,11 @@ const Footer: React.FC = () => {
         <div className="contact">
           <button>
             <img src={mailIcon} />
-            Entre em contato
+            <span>Entre em contato</span>
           </button>
           <button>
             <img src={callIcon} />
-            Fale com o nosso consultor online
+            <span>Fale com o nosso consultor online</span>
           </button>
         </div>
 

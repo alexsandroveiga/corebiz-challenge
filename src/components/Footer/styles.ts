@@ -8,7 +8,6 @@ export const Container = styled.div`
   .wrap {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
     flex-direction: column;
 
     > div + div {
@@ -33,10 +32,10 @@ export const Container = styled.div`
   }
 
   .contact {
-    text-align: center;
+    flex: 1;
 
     button {
-      width: 70%;
+      width: 200px;
       font-size: 12px;
       font-weight: 600;
       height: 38px;
@@ -46,6 +45,7 @@ export const Container = styled.div`
       border-radius: 5px;
       display: flex;
       align-items: center;
+      justify-content: flex-start;
       padding: 0 1rem;
       margin: 0 auto;
 
@@ -55,6 +55,11 @@ export const Container = styled.div`
 
       img {
         margin-right: 1rem;
+      }
+
+      span {
+        flex: 1;
+        text-align: left;
       }
     }
   }

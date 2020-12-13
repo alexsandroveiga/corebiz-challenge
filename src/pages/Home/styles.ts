@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
   padding-top: 80px;
 `
 
@@ -25,29 +25,56 @@ export const Content = styled.div`
   }
 
   .products {
-    display: flex;
-    justify-content: space-between;
-    flex-flow: row wrap;
-    padding: 0 1rem;
+    padding: 0 0.5rem 3rem 0.5rem;
+
+    .slick-slide {
+      font-size: 0;
+      padding: 0 0.5rem;
+    }
+
+    .slick-dots {
+      bottom: 1rem;
+      height: 16px;
+      font-size: 0;
+      left: 0;
+    }
+
+    .slick-dots li {
+      width: 16px;
+      height: 16px;
+      margin: 0 0.25rem;
+    }
+
+    .slick-dots li button::before {
+      width: 16px;
+      height: 16px;
+      line-height: 16px;
+      font-size: 10px;
+    }
+
+    .slick-dots li.slick-active button::before {
+      color: red;
+    }
 
     .product {
-      width: calc(50% - 0.5rem);
-      margin-bottom: 1rem;
       position: relative;
       overflow: hidden;
+      padding: 0;
 
       .off {
         position: absolute;
         top: 0;
-        right: 0;
-        width: 44px;
+        right: 0rem;
+        width: 51px;
         height: 44px;
-        background: red;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        background: #f8475f;
+        text-align: right;
+        padding: 0.5rem 0.25rem 0 0;
         color: #fff;
         font-weight: 600;
+        -webkit-clip-path: polygon(0 0, 100% 100%, 100% 0%, 0% -100%);
+        clip-path: polygon(0 0, 100% 100%, 100% 0%, 0% -100%);
+        font-size: 0.625rem;
       }
 
       img {
@@ -61,6 +88,11 @@ export const Content = styled.div`
         margin-top: 0.25rem;
         font-weight: 600;
         text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
       }
 
       .listPrice {
@@ -73,6 +105,14 @@ export const Content = styled.div`
 
       .price {
         font-weight: 700;
+        display: block;
+        text-align: center;
+        font-size: 1rem;
+      }
+
+      .installments {
+        font-size: 0.75rem;
+        color: #7a7a7a;
         display: block;
         text-align: center;
       }
@@ -93,7 +133,7 @@ export const Content = styled.div`
       .rating {
         display: flex;
         justify-content: center;
-        margin: 1rem 0 0.5rem 0;
+        margin: 0.25rem 0;
 
         img {
           width: 12px;
@@ -166,10 +206,85 @@ export const Content = styled.div`
     .products {
       width: 1050px;
       margin: 0 auto;
-      padding: 0;
+      padding: 0 0 1rem 0;
+
+      .slick-list {
+        margin: 0 -1rem;
+      }
+
+      .slick-slide {
+        padding: 0 1rem;
+      }
+
+      .slick-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 0;
+
+        &:before {
+          font-size: 40px;
+          line-height: 40px;
+          color: #000;
+          display: inline-block;
+          font-style: normal;
+          font-variant: normal;
+          text-rendering: auto;
+          -webkit-font-smoothing: antialiased;
+          font-family: 'Font Awesome 5 Pro';
+        }
+
+        &.slick-prev {
+          left: -50px;
+
+          &:before {
+            content: '\f053';
+          }
+        }
+
+        &.slick-next {
+          right: -50px;
+
+          &:before {
+            content: '\f054';
+          }
+        }
+
+        &.slick-disabled {
+        }
+      }
 
       .product {
-        width: calc(25% - 0.75rem);
+        padding: 0;
+        transition: all 0.5s ease;
+        margin: 0;
+
+        button {
+          transition: all 0.5s ease;
+          opacity: 0;
+          visibility: hidden;
+        }
+
+        &:hover {
+          background: #e6e8ea;
+
+          button {
+            opacity: 1;
+            visibility: visible;
+          }
+        }
+
+        .product-content {
+          padding: 0 1rem 1rem;
+        }
+
+        .off {
+          position: absolute;
+          width: 82px;
+          height: 72px;
+          padding: 1rem 0.5rem 0 0;
+          font-weight: 900;
+          font-size: 1rem;
+        }
       }
     }
 
