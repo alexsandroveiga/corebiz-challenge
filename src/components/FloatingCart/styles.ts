@@ -111,10 +111,26 @@ export const Container = styled.div`
   @media only screen and (min-width: 67em) {
     width: 300px;
     left: auto;
-    right: calc((100% - 1050px) / 2 - 150px);
+    right: calc((100% - 1050px) / 2 - 130px);
 
     &.opened {
-      top: 88px;
+      top: 96px;
+
+      &:before {
+        content: '';
+        display: inline-block;
+        vertical-align: middle;
+        width: 0;
+        height: 0;
+
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 8px solid #fff;
+        top: -0.5rem;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
     }
   }
 `
