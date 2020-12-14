@@ -12,8 +12,9 @@ export const Container = styled.div`
 
   img {
     position: absolute;
-    width: 120%;
     opacity: 0.6;
+    height: 100%;
+    width: auto;
   }
 
   .heading {

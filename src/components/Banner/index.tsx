@@ -4,7 +4,7 @@ import { Container } from './styles'
 
 import banner from '../../assets/banner.jpg'
 
-const Carousel: React.FC = () => {
+const Banner: React.FC = () => {
   return (
     <Container>
       <img src={banner} />
@@ -24,4 +24,4 @@ const Carousel: React.FC = () => {
   )
 }
 
-export default Carousel
+export default Banner

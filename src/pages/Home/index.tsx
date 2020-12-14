@@ -1,15 +1,16 @@
-import React, { useEffect, useState, useCallback, FormEvent } from 'react'
+import React, { useEffect, useState } from 'react'
+import Slider from 'react-slick'
 
 import { useCart } from '../../hooks/cart'
 import api from '../../services/api'
 import formatValue from '../../utils/formatValue'
-import Slider from 'react-slick'
 
 import starFullIcon from '../../assets/starfull-icon.svg'
 import starEmptyIcon from '../../assets/starempty-icon.svg'
 
 import Header from '../../components/Header'
-import Carousel from '../../components/Carousel'
+import Banner from '../../components/Banner'
+import Newsletter from '../../components/Newsletter'
 import Footer from '../../components/Footer'
 
 import { Container, Content } from './styles'
@@ -31,10 +32,7 @@ interface Product {
 }
 
 const Home: React.FC = () => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [success, setSuccess] = useState(false)
-  const [error, setError] = useState(false)
+  const [search, setSearch] = useState('')
   const { addToCart } = useCart()
   const [products, setProducts] = useState<Product[]>([])
 
@@ -46,7 +44,7 @@ const Home: React.FC = () => {
     }
 
     loadProducts()
-  }, [])
+  }, [products])
 
   function handleAddToCart(item: Product): void {
     addToCart(item)
@@ -55,11 +53,11 @@ const Home: React.FC = () => {
   const settings = {
     dots: false,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 3,
     slidesToScroll: 1,
     arrows: true,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 5000,
     infinite: true,
     responsive: [
       {
@@ -74,25 +72,17 @@ const Home: React.FC = () => {
     ]
   }
 
-  const handleSubmit = useCallback(
-    async (e: FormEvent) => {
-      e.preventDefault()
-
-      api
-        .post('/newsletter', { name, email })
-        .then(() => setSuccess(true))
-        .catch(() => setError(true))
-    },
-    [name, email]
-  )
-
   return (
     <Container>
-      <Header />
-      <Carousel />
+      <Header search={setSearch} />
+      <Banner />
 
       <Content>
-        <h1>Mais vendidos</h1>
+        {search === '' ? (
+          <h1>Mais vendidos</h1>
+        ) : (
+          <h1>Resultados da busca: {search}</h1>
+        )}
         <Slider {...settings} className="products">
           {products.map(product => (
             <div className="product" key={product.productId}>
@@ -152,48 +142,7 @@ const Home: React.FC = () => {
           ))}
         </Slider>
 
-        <div className="newsletter">
-          {success ? (
-            <div className="success">
-              <h1>Seu e-mail foi cadastrado com sucesso!</h1>
-              <p>
-                A partir de agora você receberá as novidade e ofertas
-                exclusivas.
-              </p>
-              <button onClick={() => setSuccess(false)}>
-                Cadastrar novo e-mail
-              </button>
-            </div>
-          ) : (
-            <div>
-              <h1>Participe de nossas news com promoções e novidades!</h1>
-              <form onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  placeholder="Digite seu nome"
-                  value={name}
-                  onChange={e => {
-                    setError(false)
-                    setName(e.target.value)
-                  }}
-                  className={error ? 'errored' : ''}
-                />
-                <input
-                  type="text"
-                  placeholder="Digite seu e-mail"
-                  value={email}
-                  onChange={e => {
-                    setError(false)
-                    setEmail(e.target.value)
-                  }}
-                  className={error ? 'errored' : ''}
-                />
-
-                <button type="submit">Eu quero!</button>
-              </form>
-            </div>
-          )}
-        </div>
+        <Newsletter />
 
         <Footer />
       </Content>

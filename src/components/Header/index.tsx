@@ -12,7 +12,11 @@ import menuIcon from '../../assets/menu-icon.svg'
 import searchIcon from '../../assets/search-icon.svg'
 import userIcon from '../../assets/user-icon.svg'
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  search(q: string): void
+}
+
+const Header: React.FC<HeaderProps> = ({ search }) => {
   const [active, setIsActive] = useState(false)
   const { products } = useCart()
 
@@ -41,7 +45,11 @@ const Header: React.FC = () => {
           </button>
 
           <div className="search">
-            <input type="text" placeholder="O que está procurando?" />
+            <input
+              type="text"
+              placeholder="O que está procurando?"
+              onChange={e => search(e.target.value)}
+            />
             <button>
               <img src={searchIcon} />
             </button>
